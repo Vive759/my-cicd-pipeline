@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>CI/CD Pipeline Demo</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <main>
+    <header>
+      <h1>🚀 CI/CD Pipeline Demo</h1>
+      <p class="sub">Jenkins · Docker · Ansible · Nginx</p>
+      <span class="badge" id="status">checking…</span>
+    </header>
+
+    <section class="flow">
+      <div class="step">GitHub<br><small>push</small></div><span>→</span>
+      <div class="step">Jenkins<br><small>build</small></div><span>→</span>
+      <div class="step">Docker<br><small>image</small></div><span>→</span>
+      <div class="step">Ansible<br><small>deploy</small></div><span>→</span>
+      <div class="step live">Live<br><small>:8090</small></div>
+    </section>
+
+    <section class="info">
+      <h2>Deployment info</h2>
+      <table>
+        <tr><td>App version</td><td id="appver">v1.0</td></tr>
+        <tr><td>Jenkins build</td><td id="build">-</td></tr>
+        <tr><td>Git commit</td><td id="commit">-</td></tr>
+        <tr><td>Built at (UTC)</td><td id="time">-</td></tr>
+      </table>
+    </section>
+
+    <footer>Change <code>app/index.html</code>, push to GitHub, and watch this page update.</footer>
+  </main>
+  <script src="script.js"></script>
+</body>
+</html>

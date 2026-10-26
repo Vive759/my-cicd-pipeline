@@ -1,0 +1,35 @@
+---
+- name: Deploy app container
+  hosts: local
+  gather_facts: no
+
+  vars:
+    image_name: "cicd-app"
+    container_name: "cicd-app-container"
+    host_port: 8090
+    container_port: 80
+
+  tasks:
+    - name: Remove old container (if any)
+      command: docker rm -f {{ container_name }}
+      register: rm_result
+      changed_when: rm_result.rc == 0
+      failed_when: false
+
+    # Image is already built by the Jenkins "Build" stage
+    - name: Run new container
+      command: >
+        docker run -d
+        --name {{ container_name }}
+        --restart always
+        -p {{ host_port }}:{{ container_port }}
+        {{ image_name }}:latest
+
+    - name: Wait for app to respond
+      uri:
+        url: "http://localhost:{{ host_port }}"
+        status_code: 200
+      register: health
+      retries: 10
+      delay: 2
+      until: health.status == 200
